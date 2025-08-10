@@ -186,7 +186,9 @@
 </script>
 
 <svelte:window on:keydown|preventDefault={onKeyDown} />
-<div class="w-screen h-screen red font-mono screen overflow-hidden bg-black">
+<div
+    class="m-auto w-screen h-screen red font-mono screen overflow-hidden bg-black"
+>
     <div class="relative w-screen h-screen">
         <!-- <Filtered /> -->
         <!-- <div
