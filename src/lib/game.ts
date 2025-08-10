@@ -1,7 +1,11 @@
-import back from "$lib/assets/back.png";
-import front from "$lib/assets/front.png";
-import left from "$lib/assets/frontInv.png";
-import right from "$lib/assets/frontInverted.png";
+// import back from "$lib/assets/back.png";
+// import front from "$lib/assets/front.png";
+// import left from "$lib/assets/frontInv.png";
+// import right from "$lib/assets/frontInverted.png";
+import back from "$lib/assets/player-front.png";
+import front from "$lib/assets/player-back.png";
+import left from "$lib/assets/player-left.png";
+import right from "$lib/assets/player-right.png";
 
 export function markDirection(grid, playerX, playerY, radius, direction) {
   switch (direction) {

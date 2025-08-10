@@ -3,7 +3,12 @@
     import Enemy from "$lib/components/Enemy.svelte";
     import Floor from "$lib/components/Floor.svelte";
     import Filtered from "$lib/components/Filtered.svelte";
-    import front from "$lib/assets/front.png";
+    import front from "$lib/assets/player-back.png";
+
+    import wasd from "$lib/assets/wasd.png";
+    import space from "$lib/assets/space.png";
+    import arrow from "$lib/assets/arrow.png";
+
     import { onMount } from "svelte";
     import {
         markDirection,
@@ -14,31 +19,18 @@
     } from "$lib/game.ts";
     import { FACES, STATE, MOVES } from "$lib/const.ts";
 
+    const remInPixels = 15;
+
     let world = {
         transformY: 0,
         transformX: 135,
         transformZ: 0,
         scale: 1000,
-        plate: 20,
+        plate: 15,
     };
 
     let playerRef;
     let floorRef;
-
-    let enemies = [
-        {
-            r: 9,
-            c: 5,
-        },
-        {
-            r: 8,
-            c: 9,
-        },
-        {
-            r: 1,
-            c: 1,
-        },
-    ];
 
     let player = {
         x: 0,
@@ -89,15 +81,20 @@
             ? STATE.MOVING
             : STATE.IDLE;
 
-        // console.log(player.mapped);
-
         Object.entries(keys).forEach(([key, active]) => {
             if (!MOVES[key]) return;
             if (active && key !== "space") {
                 player.activeImage = updatePlayerImage(key);
                 let move = MOVES[key][floor.position];
+                const newPos = player[move.axis] + player.step * move.step;
+                if (
+                    (move.axis === "x" || move.axis === "z") &&
+                    (newPos > remInPixels * world.plate * 2 || newPos < 0)
+                )
+                    return;
+
                 player.direction = move.dir;
-                player[move.axis] += player.step * move.step;
+                player[move.axis] = newPos;
             }
         });
     }
@@ -170,6 +167,35 @@
 <div class="w-screen h-screen red font-mono screen overflow-hidden bg-black">
     <div class="relative w-screen h-screen">
         <Filtered />
+        <!-- <div
+            class="absolute z-0 text-black w-96 h-96 flex flex-cold justify-center items-start p-4"
+        >
+            <div class="h-auto w-auto bg-yellow-400 p-4">
+                <p>x:{player.x}</p>
+                <p>y:{player.y}</p>
+                <p>z:{player.z}</p>
+                <p>direction:{player.direction}</p>
+                <p>state:{player.state}</p>
+                <p>mapped:{player.mapped}</p>
+                <p>step:{player.step}</p>
+                <p>activeImage:{player.activeImage}</p>
+                <p>floor:{floor.position}</p>
+            </div>
+        </div> -->
+        <div class="absolute z-0 w-auto h-auto flex flex-col p-4">
+            <div class="flex h-auto w-auto items-center gap-2">
+                <img src={wasd} alt="wasd" class="h-10 player-img" />
+                <p class="h-5 w-auto text-white text-xs italic">
+                    MOVE THE PLAYER
+                </p>
+            </div>
+            <div class="flex h-auto w-auto items-center gap-2">
+                <img src={space} alt="wasd" class="h-10 player-img" />
+                <p class="h-5 w-auto text-white text-xs italic">
+                    ATTACK THE ENEMY
+                </p>
+            </div>
+        </div>
         <div
             class="flex justify-center items-center w-full h-full absolute z-10"
         >
@@ -178,7 +204,6 @@
                     class="cube flex justify-center items-center"
                     style=" --x: {world.transformX}deg;--y: {world.transformY}deg; --z: {world.transformZ}deg;"
                 >
-                    <!-- Outter cube -->
                     <div
                         class="w-full h-full absolute floor"
                         style="width: {2 * world.plate}rem ; height: {2 *
@@ -187,23 +212,10 @@
                         <Player
                             {player}
                             {keys}
+                            {floor}
                             transformX={world.transformX}
                             bind:this={playerRef}
                         />
-
-                        {#each enemies as enemy}
-                            <Enemy
-                                enemy={mapGridToPlayer(
-                                    world.plate,
-                                    2,
-                                    15,
-                                    enemy.r,
-                                    enemy.c,
-                                )}
-                                transformX={world.transformX}
-                            />
-                        {/each}
-
                         <Floor {floor} {player} {world} bind:this={floorRef} />
                     </div>
                 </div>
@@ -252,5 +264,10 @@
     .floor {
         transform-style: preserve-3d;
         transform: rotateX(90deg);
+    }
+    .player-img {
+        image-rendering: pixelated; /* Prevent blurring */
+        image-rendering: -moz-crisp-edges; /* Support for older Firefox */
+        image-rendering: crisp-edges; /* Standard syntax */
     }
 </style>

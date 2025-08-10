@@ -2,10 +2,29 @@
     export let player;
     export let keys;
     export let transformX;
+    export let floor;
+    import { ATTACK_MAP } from "$lib/const.ts";
 
     export function playerFunction() {
         console.log("I am a player!");
     }
+
+    let attackMap = {
+        0: {
+            front: "front",
+            left: "left",
+            right: "right",
+            back: "back",
+        },
+        1: {
+            front: "left",
+            left: "back",
+            right: "front",
+            back: "right",
+        },
+        2: { front: "back", back: "front", right: "left", left: "right" },
+        3: { front: "right", back: "left", left: "front", right: "back" },
+    };
 </script>
 
 <div
@@ -13,7 +32,7 @@
     style=" --xplayer: {player.x}px;--yplayer: {player.y}px; --zplayer: {player.z}px; --face: {transformX}"
 >
     <div
-        class="w-[20rem] h-[10rem] player-image flex items-center justify-center"
+        class="w-[20rem] h-[10rem] player-image flex items-center justify-center player"
     >
         <img
             src={player.activeImage}
@@ -25,28 +44,32 @@
         <div class="attack flex flex-col justify-between">
             <div class="corner top">
                 <div
-                    class={player.direction == "front" && keys["space"]
-                        ? "attack-animation-1 attack-animation-animation"
+                    class={player.direction ==
+                        ATTACK_MAP[floor.position]["front"] && keys["space"]
+                        ? "attack-animation-1 attack-animation-animation ro"
                         : ""}
                 ></div>
             </div>
             <div class="corner left">
                 <div
-                    class={player.direction == "left" && keys["space"]
+                    class={player.direction ==
+                        ATTACK_MAP[floor.position]["left"] && keys["space"]
                         ? "attack-animation-2 attack-animation-animation"
                         : ""}
                 ></div>
             </div>
             <div class="corner right">
                 <div
-                    class={player.direction == "right" && keys["space"]
+                    class={player.direction ==
+                        ATTACK_MAP[floor.position]["right"] && keys["space"]
                         ? "attack-animation-2 attack-animation-animation"
                         : ""}
                 ></div>
             </div>
             <div class="corner bottom">
                 <div
-                    class={player.direction == "back" && keys["space"]
+                    class={player.direction ==
+                        ATTACK_MAP[floor.position]["back"] && keys["space"]
                         ? "attack-animation-1 attack-animation-animation"
                         : ""}
                 ></div>
