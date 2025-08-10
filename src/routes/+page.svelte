@@ -206,7 +206,9 @@
                 <p>floor:{floor.position}</p>
             </div>
         </div> -->
-        <div class="absolute z-0 w-auto h-auto flex flex-col p-4">
+        <div
+            class="absolute z-0 w-auto h-auto flex flex-col p-4 hidden md:block"
+        >
             <div class="flex h-auto w-auto items-center gap-2">
                 <img src={wasd} alt="wasd" class="h-10 player-img" />
                 <p class="h-5 w-auto text-white text-xs italic">
