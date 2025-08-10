@@ -34,7 +34,7 @@
         : 'none'};"
 >
     <div class="player-image flex flex-col items-center justify-center player">
-        <p class="text-red-400 text-2xl font-black">{healthBar()}</p>
+        <!-- <p class="text-red-400 text-2xl font-black">{healthBar()}</p> -->
         <img
             src={image}
             alt="enemy"
