@@ -13,7 +13,7 @@
         if (health <= 0) {
             health = 0;
         }
-        return "opacity-25";
+        return "filter: brightness(0) saturate(100%) invert(13%) sepia(48%) saturate(7228%) hue-rotate(356deg) brightness(122%) contrast(126%);";
     };
 
     const healthBar = () => {
@@ -31,16 +31,18 @@
     style=" --xplayer: {enemy.x}px; --zplayer: {enemy.z}px; --face: {transformX}; display: {health >
     0
         ? 'block'
-        : 'none'}; background-color: rgba(0,0,0, {0.25 * attacked.pressure});"
+        : 'none'}; background-color: rgba(0,0,0, {0.4 * attacked.pressure});"
 >
     <div class="player-image flex flex-col items-center justify-center player">
         <img
             src={image}
             alt="enemy"
-            class="monster player-img {attacked.attackedArea
+            class="monster duration-200 player-img {attacked.attackedArea
                 ? attackHandler()
                 : ''}"
-            style="opacity: {0.25 * attacked.pressure};"
+            style="opacity: {0.25 * attacked.pressure}; {attacked.attackedArea
+                ? attackHandler()
+                : ''}"
         />
     </div>
 </div>

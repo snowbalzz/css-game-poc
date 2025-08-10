@@ -55,7 +55,7 @@
                 <div
                     class={player.direction ==
                         ATTACK_MAP[floor.position]["front"] && keys["space"]
-                        ? "attack-animation-1 attack-animation-animation ro"
+                        ? "attack-animation-1 attack-animation-animation"
                         : ""}
                 ></div>
             </div>
@@ -88,6 +88,10 @@
 </div>
 
 <style>
+    .filter-attack {
+        filter: brightness(0) saturate(100%) invert(13%) sepia(48%)
+            saturate(7228%) hue-rotate(356deg) brightness(122%) contrast(126%);
+    }
     @keyframes walk {
         0%,
         100% {
@@ -109,6 +113,7 @@
         100% {
             transform: scaleX(0);
             min-height: 1rem;
+            background-color: springgreen;
             transform-origin: left;
         }
     }
@@ -120,6 +125,7 @@
         }
         100% {
             transform: scaleY(0);
+            background-color: springgreen;
             transform-origin: bottom;
         }
     }
@@ -155,7 +161,7 @@
         image-rendering: crisp-edges; /* Standard syntax */
         min-height: 2rem;
         min-width: 8rem;
-        background: white;
+        background: mediumpurple;
         animation: left-to-right-1 0.1s ease-in;
     }
 
@@ -165,7 +171,7 @@
         image-rendering: crisp-edges; /* Standard syntax */
         min-height: 8rem;
         min-width: 2rem;
-        background: white;
+        background: mediumpurple;
         animation: left-to-right-2 0.2s ease-in-out;
     }
 

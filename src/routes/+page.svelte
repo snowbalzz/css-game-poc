@@ -53,6 +53,10 @@
         space: false,
     };
 
+    let handlePressBasedOnKey = (key) => {
+        keys[key] = !keys[key];
+    };
+
     let floor = {
         position: 0,
         area: arraySetUp(world.plate, world.plate),
@@ -146,6 +150,24 @@
         }
     };
 
+    function floorLeft() {
+        if (floor.position == 0) {
+            floor.position = 3;
+        } else {
+            floor.position--;
+        }
+        world.transformY -= 90;
+    }
+
+    function floorRight() {
+        if (floor.position == 3) {
+            floor.position = 0;
+        } else {
+            floor.position++;
+        }
+        world.transformY += 90;
+    }
+
     function gameLoop() {
         floorRef.floorLogicHandler();
         updatePosition();
@@ -166,7 +188,7 @@
 <svelte:window on:keydown|preventDefault={onKeyDown} />
 <div class="w-screen h-screen red font-mono screen overflow-hidden bg-black">
     <div class="relative w-screen h-screen">
-        <Filtered />
+        <!-- <Filtered /> -->
         <!-- <div
             class="absolute z-0 text-black w-96 h-96 flex flex-cold justify-center items-start p-4"
         >
@@ -196,8 +218,99 @@
                 </p>
             </div>
         </div>
+
         <div
-            class="flex justify-center items-center w-full h-full absolute z-10"
+            class="absolute z-20 w-full h-full p-4 flex flex-col items-center justify-end block md:hidden"
+        >
+            <div
+                class="h-60 w-96 p-4 flex flex-row text-white gap-1 justify-center items-center"
+            >
+                <div class="flex flex-col h-full w-48 gap-1">
+                    <div class="h-[4rem] w-full flex flex-row gap-1">
+                        <button
+                            class="h-full w-[4rem] border-2 rounded-xl"
+                            on:mousedown|preventDefault={floorLeft}
+                            on:mouseup|preventDefault={floorLeft}
+                            on:touchstart|preventDefault={floorLeft}
+                            on:touchend|preventDefault={floorLeft}>CAM-L</button
+                        >
+                        <button
+                            class="h-full w-[4rem] text-center border-2 rounded-xl"
+                            on:mousedown|preventDefault={() =>
+                                handlePressBasedOnKey("w")}
+                            on:mouseup|preventDefault={() =>
+                                handlePressBasedOnKey("w")}
+                            on:touchstart|preventDefault={() =>
+                                handlePressBasedOnKey("w")}
+                            on:touchend|preventDefault={() =>
+                                handlePressBasedOnKey("w")}
+                        >
+                            UP
+                        </button>
+                        <button
+                            class="h-full w-[4rem] border-2 rounded-xl"
+                            on:mousedown|preventDefault={floorRight}
+                            on:mouseup|preventDefault={floorRight}
+                            on:touchstart|preventDefault={floorRight}
+                            on:touchend|preventDefault={floorRight}
+                            >CAM-R</button
+                        >
+                    </div>
+                    <div class="h-[4rem] w-full flex flex-row gap-1">
+                        <button
+                            class="h-full w-[4rem] text-center border-2 rounded-xl"
+                            on:mousedown|preventDefault={() =>
+                                handlePressBasedOnKey("a")}
+                            on:mouseup|preventDefault={() =>
+                                handlePressBasedOnKey("a")}
+                            on:touchstart|preventDefault={() =>
+                                handlePressBasedOnKey("a")}
+                            on:touchend|preventDefault={() =>
+                                handlePressBasedOnKey("a")}>LEFT</button
+                        >
+                        <button
+                            class="h-full w-[4rem] text-center border-2 rounded-xl"
+                            on:mousedown|preventDefault={() =>
+                                handlePressBasedOnKey("space")}
+                            on:mouseup|preventDefault={() =>
+                                handlePressBasedOnKey("space")}
+                            on:touchstart|preventDefault={() =>
+                                handlePressBasedOnKey("space")}
+                            on:touchend|preventDefault={() =>
+                                handlePressBasedOnKey("space")}>SPACE</button
+                        >
+                        <button
+                            class="h-full w-[4rem] text-center border-2 rounded-xl"
+                            on:mousedown|preventDefault={() =>
+                                handlePressBasedOnKey("d")}
+                            on:mouseup|preventDefault={() =>
+                                handlePressBasedOnKey("d")}
+                            on:touchstart|preventDefault={() =>
+                                handlePressBasedOnKey("d")}
+                            on:touchend|preventDefault={() =>
+                                handlePressBasedOnKey("d")}>RIGHT</button
+                        >
+                    </div>
+                    <div class="h-[4rem] w-full flex flex-row gap-1">
+                        <div class="h-full w-[4rem]"></div>
+                        <button
+                            class="h-full w-[4rem] text-center border-2 rounded-xl"
+                            on:mousedown|preventDefault={() =>
+                                handlePressBasedOnKey("s")}
+                            on:mouseup|preventDefault={() =>
+                                handlePressBasedOnKey("s")}
+                            on:touchstart|preventDefault={() =>
+                                handlePressBasedOnKey("s")}
+                            on:touchend|preventDefault={() =>
+                                handlePressBasedOnKey("s")}>DOWN</button
+                        >
+                        <div class="h-full w-[4rem]"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="flex justify-center items-center w-full h-full scale-55 md:scale-100 absolute z-10"
         >
             <div class="world" style="--per:{world.scale}px;">
                 <div
