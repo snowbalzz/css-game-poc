@@ -220,7 +220,7 @@
         </div>
 
         <div
-            class="absolute z-20 w-full h-full p-4 flex flex-col items-center justify-end block md:hidden"
+            class="absolute z-20 w-full h-auto p-4 flex flex-col items-center block md:hidden top-[28rem]"
         >
             <div
                 class="h-60 w-96 p-4 flex flex-row text-white gap-1 justify-center items-center"
@@ -230,9 +230,8 @@
                         <button
                             class="h-full w-[4rem] border-2 rounded-xl"
                             on:mousedown|preventDefault={floorLeft}
-                            on:mouseup|preventDefault={floorLeft}
                             on:touchstart|preventDefault={floorLeft}
-                            on:touchend|preventDefault={floorLeft}>CAM-L</button
+                            >CAM-L</button
                         >
                         <button
                             class="h-full w-[4rem] text-center border-2 rounded-xl"
@@ -250,9 +249,7 @@
                         <button
                             class="h-full w-[4rem] border-2 rounded-xl"
                             on:mousedown|preventDefault={floorRight}
-                            on:mouseup|preventDefault={floorRight}
                             on:touchstart|preventDefault={floorRight}
-                            on:touchend|preventDefault={floorRight}
                             >CAM-R</button
                         >
                     </div>
