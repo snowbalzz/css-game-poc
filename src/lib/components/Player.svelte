@@ -4,6 +4,7 @@
     export let transformX;
     export let floor;
     import { ATTACK_MAP } from "$lib/const.ts";
+    import staff from "$lib/assets/staff.png";
 
     export function playerFunction() {
         console.log("I am a player!");
@@ -38,6 +39,14 @@
             src={player.activeImage}
             alt="player"
             class="monster opacity player-img {player.state == 'moving'
+                ? 'walking'
+                : 'idle'}"
+        />
+        <img
+            src={staff}
+            alt="player"
+            class="w-4 player-img rotate-20 -translate-x-2 {player.state ==
+            'moving'
                 ? 'walking'
                 : 'idle'}"
         />

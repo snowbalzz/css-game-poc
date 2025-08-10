@@ -31,16 +31,16 @@
     style=" --xplayer: {enemy.x}px; --zplayer: {enemy.z}px; --face: {transformX}; display: {health >
     0
         ? 'block'
-        : 'none'};"
+        : 'none'}; background-color: rgba(0,0,0, {0.25 * attacked.pressure});"
 >
     <div class="player-image flex flex-col items-center justify-center player">
-        <!-- <p class="text-red-400 text-2xl font-black">{healthBar()}</p> -->
         <img
             src={image}
             alt="enemy"
-            class="monster opacity player-img {attacked.attackedArea
+            class="monster player-img {attacked.attackedArea
                 ? attackHandler()
                 : ''}"
+            style="opacity: {0.25 * attacked.pressure};"
         />
     </div>
 </div>

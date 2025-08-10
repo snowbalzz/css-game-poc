@@ -39,7 +39,7 @@
         direction: FACES.FRONT,
         state: STATE.IDLE,
         mapped: { row: 0, column: 0 },
-        step: 10,
+        step: 5,
         activeImage: front,
     };
 
